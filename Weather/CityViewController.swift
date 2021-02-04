@@ -1,14 +1,14 @@
 //
-//  MainTableViewController.swift
+//  CityViewController.swift
 //  Weather
 //
-//  Created by Артем Чернышов on 03.02.2021.
+//  Created by Артем Чернышов on 04.02.2021.
 //  Copyright © 2021 Artem Chernyshov. All rights reserved.
 //
 
 import UIKit
 
-class MainTableViewController: UITableViewController {
+class CityViewController: UIViewController {
 
   let cities = [
     Cities(name: "Москва", lat: "55", lon: "37"),
@@ -38,9 +38,13 @@ class MainTableViewController: UITableViewController {
     Cities(name: "Ярославль", lat: "57", lon: "39")
   ]
 
+  @IBOutlet weak var tableView: UITableView!
+  
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    tableView.dataSource = self
     settingsNavigationController()
   }
 
@@ -48,36 +52,6 @@ class MainTableViewController: UITableViewController {
     super.viewWillAppear(true)
 
     settingsNavigationController()
-
-
-  }
-
-  // MARK: - SettingsNavigationController
-  func settingsNavigationController() {
-
-    navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-    navigationController?.navigationBar.shadowImage = UIImage()
-
-    if #available(iOS 11.0, *) {
-      navigationController?.navigationBar.prefersLargeTitles = true
-    }
-
-    navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-  }
-
-  // MARK: - TableViewDataSource
-  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return cities.count
-  }
-
-  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-    let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-    let city = cities[indexPath.row]
-
-    cell.textLabel?.text = city.name
-
-    return cell
   }
 
   // MARK: - Navigation
@@ -92,5 +66,33 @@ class MainTableViewController: UITableViewController {
         weatherVC.longitude = city.lon
       }
     }
+  }
+
+  // MARK: - SettingsNavigationController
+  func settingsNavigationController() {
+
+    navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+
+    if #available(iOS 11.0, *) {
+      navigationController?.navigationBar.prefersLargeTitles = true
+    }
+
+    navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+  }
+}
+
+// MARK: - UITableViewDataSource
+extension CityViewController: UITableViewDataSource {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return cities.count
+  }
+
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+    let city = cities[indexPath.row]
+
+    cell.textLabel?.text = city.name
+
+    return cell
   }
 }

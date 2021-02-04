@@ -20,10 +20,10 @@ class WeatherViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    navigationController?.navigationBar.shadowImage = UIImage()
+
     navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
 
     cityNavigationItem.title = city
-
     }
-  
 }

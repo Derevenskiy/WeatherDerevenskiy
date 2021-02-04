@@ -11,38 +11,50 @@
     </dependencies>
     <scenes>
         <!--Выберите город-->
-        <scene sceneID="1Zl-8P-13U">
+        <scene sceneID="8sG-Px-R9C">
             <objects>
-                <tableViewController id="qtf-hH-PPk" customClass="MainTableViewController" customModule="Weather" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="BSG-K0-r4f">
+                <viewController id="td2-pQ-eQa" customClass="CityViewController" customModule="Weather" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="S87-xE-yHA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DOD-ON-MyI">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="Vqe-Le-l9H">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Vqe-Le-l9H" id="tp3-Qm-lT6">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="J6G-fb-xLF" kind="show" identifier="WeatherVC" id="C6M-yH-Flf"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="0e9-Us-pbJ">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0e9-Us-pbJ" id="47E-vB-Vl5">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="J6G-fb-xLF" kind="show" identifier="WeatherVC" id="t8Y-3U-SeM"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="qtf-hH-PPk" id="9Er-Sk-aP9"/>
-                            <outlet property="delegate" destination="qtf-hH-PPk" id="uAY-ul-B00"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Выберите город" id="Ioo-6g-H0h">
-                        <barButtonItem key="backBarButtonItem" title="Назад" id="dff-op-af9"/>
+                        <constraints>
+                            <constraint firstItem="DOD-ON-MyI" firstAttribute="bottom" secondItem="yh4-SR-5Zn" secondAttribute="bottom" id="6ZF-nD-hUY"/>
+                            <constraint firstItem="DOD-ON-MyI" firstAttribute="trailing" secondItem="yh4-SR-5Zn" secondAttribute="trailing" id="Ecv-Sx-wmy"/>
+                            <constraint firstItem="DOD-ON-MyI" firstAttribute="top" secondItem="yh4-SR-5Zn" secondAttribute="top" id="M2J-BG-JjX"/>
+                            <constraint firstItem="DOD-ON-MyI" firstAttribute="leading" secondItem="yh4-SR-5Zn" secondAttribute="leading" id="PAw-Kg-6LY"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="yh4-SR-5Zn"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Выберите город" id="FAu-yr-TIH">
+                        <barButtonItem key="backBarButtonItem" title="Назад" id="GA3-D6-2k3"/>
                     </navigationItem>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="w4E-iW-K7d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                    <connections>
+                        <outlet property="tableView" destination="DOD-ON-MyI" id="Gqd-b6-hAY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wyL-5x-uBC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="384.80000000000001" y="-550.07496251874068"/>
+            <point key="canvasLocation" x="375" y="-550"/>
         </scene>
         <!--Title-->
         <scene sceneID="JhB-Da-qy7">
@@ -86,12 +98,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="qtf-hH-PPk" kind="relationship" relationship="rootViewController" id="NKw-BW-SKU"/>
+                        <segue destination="td2-pQ-eQa" kind="relationship" relationship="rootViewController" id="Z8a-cb-91P"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KBa-Sh-yBU" userLabel="First Responder" sceneMemberID="firstResponder"/>
