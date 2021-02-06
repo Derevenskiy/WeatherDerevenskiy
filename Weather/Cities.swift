@@ -9,7 +9,6 @@
 import Foundation
 
 struct Cities {
-
   var name: String
   var lat: String
   var lon: String
