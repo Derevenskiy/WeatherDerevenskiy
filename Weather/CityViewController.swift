@@ -12,7 +12,7 @@ class CityViewController: UIViewController {
 
   let cities = [
     Cities(name: "Москва", lat: "55", lon: "37"),
-    Cities(name: "Санкт-Петербург", lat: "59", lon: "30"),
+    Cities(name: "Санкт-Петербург", lat: "59.57", lon: "30.19"),
     Cities(name: "Новосибирск", lat: "55", lon: "82"),
     Cities(name: "Екатеренбург", lat: "56", lon: "60"),
     Cities(name: "Казань", lat: "55", lon: "49"),
@@ -44,10 +44,10 @@ class CityViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-
-
     tableView.dataSource = self
     settingsNavigationController()
+
+    
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -56,24 +56,6 @@ class CityViewController: UIViewController {
     settingsNavigationController()
   }
 
-  // MARK: - weatherApi
-  func conversion() {
-    guard let url = URL(string: "https://api.openweathermap.org/data/2.5/onecall?lat=54&lon=48&exclude=minutely,hourly&lang=ru&units=metric&appid=75c5ae62a66d39be8f877cb6cf8c7bd9") else { return }
-    URLSession.shared.dataTask(with: url) { (data, response, error) in
-
-      guard let data = data else { return }
-      guard error == nil else {return}
-
-      do {
-        let decode = try JSONDecoder().decode(OfferModel.self, from: data)
-        DispatchQueue.main.async {
-          print(decode.current!.weather![0].description!)
-        }
-      } catch let error {
-        print(error)
-      }
-      }.resume()
-  }
 
   // MARK: - Navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -83,16 +65,8 @@ class CityViewController: UIViewController {
         let city = cities[indexPath.row]
 
         weatherVC.city = city.name
-        weatherVC.latitude = city.lat
-        weatherVC.longitude = city.lon
-
-        conversion()
-
-        /*
-        NetworkManager.shared.getWeather(lat: "54", lon: "48") { (model) in
-          print(model!)
-        }
-        */
+        weatherVC.lat = city.lat
+        weatherVC.lon = city.lon
       }
     }
   }

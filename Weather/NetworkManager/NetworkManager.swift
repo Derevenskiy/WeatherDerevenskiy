@@ -11,37 +11,25 @@ import Foundation
 class NetworkManager {
   static let shared: NetworkManager = NetworkManager()
 
-  func getWeather(lat: String, lon: String, result: @escaping ((OfferModel?) -> ())) {
+ 
+  // MARK: - resultWeatherApi
+  func resultWeatherApi(lat: String, lon: String, result: @escaping ((OfferModel?) -> ())) {
 
-    var urlComponents = URLComponents()
-    urlComponents.scheme = "https"
-    urlComponents.host = "api.openweathermap.org"
-    urlComponents.path = "/data/2.5/onecall"
-    urlComponents.queryItems = [URLQueryItem(name: "lat", value: lat),
-                                URLQueryItem(name: "lon", value: lon),
-                                URLQueryItem(name: "exclude", value: "minutely,hourly"),
-                                URLQueryItem(name: "lang", value: "ru"),
-                                URLQueryItem(name: "units", value: "metric"),
-                                URLQueryItem(name: "appid", value: "5c5ae62a66d39be8f877cb6cf8c7bd9")]
+    guard let url = URL(string: "https://api.openweathermap.org/data/2.5/onecall?lat=\(lat)&lon=\(lon)&exclude=minutely,hourly&lang=ru&units=metric&appid=75c5ae62a66d39be8f877cb6cf8c7bd9") else { return }
 
-    var request = URLRequest(url: urlComponents.url!)
-    request.httpMethod = "GET"
+    URLSession.shared.dataTask(with: url) { (data, response, error) in
 
-    let task = URLSession(configuration: .default)
+      guard let data = data else { return }
+      guard error == nil else {return}
 
-    task.dataTask(with: request) { (data, response, error) in
-      if error == nil {
-        let decoder = JSONDecoder()
-        var decoderOfferModel: OfferModel?
+      do {
+        let decode = try JSONDecoder().decode(OfferModel.self, from: data)
 
-        if data != nil {
-          decoderOfferModel = try? decoder.decode(OfferModel.self, from: data!)
-        }
-        result(decoderOfferModel)
-      } else {
-        print(error as Any)
+        result(decode)
+      } catch let error {
+        print(error)
       }
-    }.resume()
+      }.resume()
   }
   private init() {}
 }

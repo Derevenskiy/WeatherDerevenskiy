@@ -9,9 +9,9 @@
 import Foundation
 
 class CurrentOfferModel: Codable {
-  var dt: Int?
-  var temp: Int?
-  var humidity: Int?
-  var wind_speed: Int?
+  var dt: Double?
+  var temp: Double?
+  var humidity: Double?
+  var wind_speed: Double?
   var weather: [weatherOfferModel]?
 }

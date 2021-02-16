@@ -9,8 +9,7 @@
 import Foundation
 
 class OfferModel: Codable {
-  var lat: Int?
-  var lon: Int?
-  var timezone: String?
   var current: CurrentOfferModel?
+  var daily: [DailyOfferModel]? 
+  var alerts: [AlertsOfferModel]?
 }
